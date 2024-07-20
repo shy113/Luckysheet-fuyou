@@ -38,8 +38,7 @@ import { openProtectionModal, checkProtectionFormatCells, checkProtectionNotEnab
 import Store from '../store';
 import locale from '../locale/locale';
 import { checkTheStatusOfTheSelectedCells, frozenFirstRow, frozenFirstColumn } from '../global/api';
-import LuckyExcel from 'luckyexcel'
-import {exportSheetExcel} from '../expendPlugins/exportXlsx/plugin'
+import LuckyExcel from 'luckyexcel';
 const menuButton = {
   menu: '<div class="luckysheet-cols-menu luckysheet-rightgclick-menu luckysheet-menuButton ${subclass} luckysheet-mousedown-cancel" id="luckysheet-icon-${id}-menuButton">${item}</div>',
   // "item": '<div itemvalue="${value}" itemname="${name}" class="luckysheet-cols-menuitem ${sub} luckysheet-mousedown-cancel"><div class="luckysheet-cols-menuitem-content luckysheet-mousedown-cancel" style="padding: 3px 0px 3px 1px;"><span style="margin-right:3px;width:13px;display:inline-block;" class="icon luckysheet-mousedown-cancel"></span> ${name} <span class="luckysheet-submenu-arrow luckysheet-mousedown-cancel" style="user-select: none;">${example}</span></div></div>',
@@ -131,35 +130,7 @@ const menuButton = {
       e.stopPropagation();
     });
     $('#luckysheet-excelUpload').on('change', function(e) {
-      let file = e.target.files;
-      if (file == null || file.length == 0) {
-        alert('文件为空，请重新选择文件');
-        return;
-      }
-      let name = file[0].name;
-      let suffixArr = name.split('.'),
-        suffix = suffixArr[suffixArr.length - 1];
-      if (suffix != 'xlsx') {
-        alert('只支持xlsx文件，请重新选择');
-        return;
-      }
-
-      luckysheet.destroy(); // 先销毁当前容器
-      LuckyExcel.transformExcelToLucky(file[0], function(exportJson, luckysheetfile) {
-        console.log(exportJson);
-        if (exportJson.sheets == null || exportJson.sheets.length == 0) {
-          alert('读取excel文件内容失败，目前不支持xls文件!');
-          return;
-        }
-
-        luckysheet.create({
-          container: 'luckysheet',
-          showinfobar: false,
-          data: exportJson.sheets,
-          title: exportJson.info.name,
-          userInfo: exportJson.info.name.creator,
-        });
-      });
+      luckysheet.uploadExcel(luckysheet,e.target.files)
     });
 
     // exportExcel
@@ -168,7 +139,7 @@ const menuButton = {
     });
     $('#luckysheet-excelDownload').click(function(e) {
       e.stopPropagation();
-      luckysheet.exportSheetExcel(luckysheet, luckysheet?.toJson()?.title)
+      luckysheet.exportExcel(luckysheet, luckysheet?.toJson()?.title);
     });
 
     //格式刷

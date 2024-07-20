@@ -42,7 +42,8 @@ import { initListener } from './controllers/listener';
 import { hideloading, showloading } from './global/loading.js';
 import { luckysheetextendData } from './global/extend.js';
 
-import {exportSheetExcel} from './expendPlugins/exportXlsx/plugin'
+import {exportExcel} from './expendPlugins/exportExcel/plugin.js'
+import {uploadExcel} from './expendPlugins/uploadExcel/plugin.js'
 let luckysheet = {};
 
 // mount api
@@ -257,7 +258,8 @@ luckysheet.hideLoadingProgress = hideloading;
 luckysheet.luckysheetextendData = luckysheetextendData;
 
 luckysheet.locales = locales;
-luckysheet.exportSheetExcel = exportSheetExcel;
+luckysheet.exportExcel = exportExcel;
+luckysheet.uploadExcel = uploadExcel;
 export {
     luckysheet
 }
