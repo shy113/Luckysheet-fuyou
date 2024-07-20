@@ -12,7 +12,6 @@ on:
   push:
     branches:
       - '*'
-
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -24,8 +23,8 @@ jobs:
     - name: Mirror the Github organization repos to Gitee.
       uses: Yikun/hub-mirror-action@master
       with:
-        src: github/mengshukeji
-        dst: gitee/mengshukeji
+        src: github/shy113
+        dst: gitee/yujie113
         # 这里请填写与gitee上公钥匹配的的 ssh private key，参见：https://gitee.com/profile/sshkeys
         # 填写地址：https://github.com/ly525/luban-h5/settings/secrets
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
